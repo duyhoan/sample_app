@@ -45,15 +45,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
-
-  # Confirms a logged-in user.
-  def logged_in_user
-    unless logged_in?
-      store_
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   # Confirms the correct user.
